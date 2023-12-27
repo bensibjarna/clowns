@@ -1,62 +1,72 @@
-// app/event/page.tsx
+"use client";
 import { useState } from "react";
-import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
-import { Checkbox } from "@/components/ui/checkbox"; // Adjust the import path as needed
-import { Button } from "@/components/ui/button"; // Adjust the import path as needed
+import { useRouter } from "next/navigation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const EventPage = () => {
 	const router = useRouter();
-	const { eventId } = router.query;
-	const { register, handleSubmit } = useForm();
-	const [posts, setPosts] = useState([]); // Replace with actual data fetching logic
 
-	// Dummy checklist items
-	const checklistItems = ["Rule 1", "Rule 2", "Rule 3", "Rule 4"]; // Replace with actual data
+	const [checkboxes, setCheckboxes] = useState([
+		{ id: 1, label: "Drekka með vinstri hendi", checked: false },
+		{ id: 2, label: "Panta drykk sem þú hefur aldrei drukkið", checked: false },
+		{ id: 3, label: "Boli með röri", checked: false },
+		{ id: 4, label: "Hljóðlaus drykkja", checked: false },
+		{ id: 5, label: "5 min max á pub", checked: false },
+		{ id: 6, label: "Engin sími", checked: false },
+		{ id: 7, label: "Pullu Pit Stop", checked: false },
+		{ id: 8, label: "Kaupa drykk fyrir vin", checked: false },
+		{ id: 9, label: "Bannað að drekka sjálfur", checked: false },
+		{ id: 10, label: "Bannað að hlægja", checked: false },
+		{ id: 11, label: "Tala við ókunnugan", checked: false },
+		{ id: 12, label: "SIGUR njóttu drykksins", checked: false },
+	]);
 
-	const onSubmitChecklist = (data) => {
-		// Handle checklist submission logic
-		console.log("Checklist Data:", data);
+	const handleCheckboxChange = (id: number) => {
+		setCheckboxes((prevCheckboxes) =>
+			prevCheckboxes.map((checkbox) =>
+				checkbox.id === id ? { ...checkbox, checked: !checkbox.checked } : checkbox
+			)
+		);
 	};
 
-	const onSubmitPost = (data) => {
-		// Handle post submission logic
-		console.log("Post Data:", data);
+	const handlePostSubmit = () => {
+		// Handle post submission logic here
 	};
 
 	return (
-		<div className='container mx-auto p-4'>
-			<h1 className='text-2xl font-bold mb-4'>Event: {eventId}</h1>
-
-			{/* Checklist Section */}
-			<form onSubmit={handleSubmit(onSubmitChecklist)}>
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-					{checklistItems.map((item, index) => (
-						<div key={index}>
-							<Checkbox {...register(`checklistItem${index}`)} />
-							<label htmlFor={`checklistItem${index}`}>{item}</label>
-						</div>
+		<div>
+			<Card>
+				<CardHeader>
+					<CardTitle>Event Details</CardTitle>
+				</CardHeader>
+				<CardContent>
+					{checkboxes.map((checkbox) => (
+						<Checkbox
+							key={checkbox.id}
+							checked={checkbox.checked}
+							onChange={() => handleCheckboxChange(checkbox.id)}
+						>
+							{checkbox.label}
+						</Checkbox>
 					))}
-				</div>
-				<Button type='submit'>Update Checklist</Button>
-			</form>
+				</CardContent>
+			</Card>
 
-			{/* User Post Section */}
-			<form onSubmit={handleSubmit(onSubmitPost)} className='mt-8'>
-				<textarea {...register("content")} placeholder='Write something...' />
-				<input type='file' {...register("image")} />
-				<Button type='submit'>Post</Button>
-			</form>
+			<Card>
+				<CardHeader>
+					<CardTitle>Post Update</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<Input type='text' placeholder='Enter your update' />
 
-			{/* Display Posts */}
-			<div className='mt-8'>
-				{posts.map((post, index) => (
-					<div key={index} className='mb-4'>
-						<p>{post.content}</p>
-						{post.image && <img src={post.image} alt='Post' />}
-					</div>
-				))}
-			</div>
+					<Input type='file' accept='image/*' />
+
+					<Button onClick={handlePostSubmit}>Post</Button>
+				</CardContent>
+			</Card>
 		</div>
 	);
 };

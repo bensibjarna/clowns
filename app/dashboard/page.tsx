@@ -22,7 +22,7 @@ export default function Dashboard() {
 							<CardTitle>Pöbba Rölt 2023</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<p>Join the exciting Pöbba Rölt 2023 event!</p>
+							<p>Pöbba Rölt 2023!</p>
 						</CardContent>
 					</Card>
 				</Link>
