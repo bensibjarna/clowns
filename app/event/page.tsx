@@ -1,8 +1,7 @@
 // app/event/page.tsx
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
@@ -22,23 +21,7 @@ const checklistItems = [
   "SIGUR njóttu drykksins"
 ];
 
-const EventPage = () => {
-  const router = useRouter();
-  const [eventId, setEventId] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (router.isReady) {
-      const currentEventId = Array.isArray(router.query.eventId) 
-        ? router.query.eventId[0] 
-        : router.query.eventId;
-      setEventId(currentEventId || null);
-    }
-  }, [router.isReady, router.query.eventId]);
-
-  if (!eventId) {
-    return <div>Loading...</div>;
-  }
-
+const EventPage = ({ eventId }) => {
   const handleChecklistSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("Checklist submitted");
