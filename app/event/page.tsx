@@ -1,4 +1,4 @@
-// app/events/page.tsx
+// app/event/page.tsx
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -8,38 +8,29 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 
 const checklistItems = [
-  "Drekka með vinstri hendi",
-  "Panta drykk sem þú hefur aldrei drukkið",
-  "Boli með röri",
-  "Hljóðlaus drykkja",
-  "5 min max á pub",
-  "Engin sími",
-  "Pullu Pit Stop",
-  "Kaupa drykk fyrir vin",
-  "Bannað að drekka sjálfur",
-  "Bannað að hlægja",
-  "Tala við ókunnugan",
-  "SIGUR njóttu drykksins"
+  // ... your checklist items
 ];
 
 const EventPage = () => {
   const router = useRouter();
-  const [eventId, setEventId] = useState(null);
+  const [eventId, setEventId] = useState<string | null>(null);
 
   useEffect(() => {
     if (router.isReady) {
-      setEventId(router.query.eventId);
-      // Optionally, fetch additional event data here if necessary
+      // Ensure eventId is a string
+      const currentEventId = Array.isArray(router.query.eventId) 
+        ? router.query.eventId[0] 
+        : router.query.eventId;
+      setEventId(currentEventId || null);
     }
-  }, [router.isReady]);
+  }, [router.isReady, router.query.eventId]);
 
   if (!eventId) {
-    return <div>Loading...</div>; // Loading state or placeholder
+    return <div>Loading...</div>;
   }
 
   const handleChecklistSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle checklist submission logic here
     console.log("Checklist submitted");
   };
 
