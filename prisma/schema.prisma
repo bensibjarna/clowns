@@ -8,6 +8,34 @@ generator client {
   provider        = "prisma-client-js"
 }
 
+model Event {
+  id        String   @id @default(cuid())
+  title     String
+  date      DateTime
+  checklists Checklist[]
+  posts     Post[]
+}
+
+model Checklist {
+  id      String   @id @default(cuid())
+  userId  String
+  eventId String
+  items   Json
+  user    User     @relation(fields: [userId], references: [id])
+  event   Event    @relation(fields: [eventId], references: [id])
+}
+
+model Post {
+  id      String   @id @default(cuid())
+  userId  String
+  eventId String
+  content String
+  image   String?
+  user    User     @relation(fields: [userId], references: [id])
+  event   Event    @relation(fields: [eventId], references: [id])
+}
+
+
 model Account {
   id                 String  @id @default(cuid())
   userId             String
@@ -44,6 +72,8 @@ model User {
   role          String?
   accounts      Account[]
   sessions      Session[]
+  checklists    Checklist[]
+  posts         Post[]
 }
 
 model VerificationToken {
