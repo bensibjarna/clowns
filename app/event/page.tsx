@@ -8,7 +8,18 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 
 const checklistItems = [
-  // ... your checklist items
+  "Drekka með vinstri hendi",
+  "Panta drykk sem þú hefur aldrei drukkið",
+  "Boli með röri",
+  "Hljóðlaus drykkja",
+  "5 min max á pub",
+  "Engin sími",
+  "Pullu Pit Stop",
+  "Kaupa drykk fyrir vin",
+  "Bannað að drekka sjálfur",
+  "Bannað að hlægja",
+  "Tala við ókunnugan",
+  "SIGUR njóttu drykksins"
 ];
 
 const EventPage = () => {
@@ -17,7 +28,6 @@ const EventPage = () => {
 
   useEffect(() => {
     if (router.isReady) {
-      // Ensure eventId is a string
       const currentEventId = Array.isArray(router.query.eventId) 
         ? router.query.eventId[0] 
         : router.query.eventId;
@@ -32,6 +42,7 @@ const EventPage = () => {
   const handleChecklistSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("Checklist submitted");
+    // Implement your checklist submission logic here
   };
 
   return (
