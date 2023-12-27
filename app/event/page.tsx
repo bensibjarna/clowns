@@ -2,9 +2,9 @@
 "use client";
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@shadcn/ui/card';
+import { Checkbox } from '@shadcn/ui/checkbox';
+import { Button } from '@shadcn/ui/button';
 
 const checklistItems = [
   "Drekka með vinstri hendi",
@@ -21,7 +21,7 @@ const checklistItems = [
   "SIGUR njóttu drykksins"
 ];
 
-const EventPage = ({ eventId }) => {
+const EventPage = () => {
   const handleChecklistSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("Checklist submitted");
@@ -32,7 +32,7 @@ const EventPage = ({ eventId }) => {
     <div className='container mx-auto p-4'>
       <Card>
         <CardHeader>
-          <CardTitle>Event: {eventId}</CardTitle>
+          <CardTitle>Pöbba Rölt 2023</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleChecklistSubmit}>
