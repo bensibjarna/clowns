@@ -2,9 +2,9 @@
 "use client";
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@shadcn/ui/card';
-import { Checkbox } from '@shadcn/ui/checkbox';
-import { Button } from '@shadcn/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
+import { Checkbox } from '@components/ui/checkbox';
+import { Button } from '@components/ui/button';
 
 const checklistItems = [
   "Drekka með vinstri hendi",
