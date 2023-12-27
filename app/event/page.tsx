@@ -1,6 +1,8 @@
-// app/event/page.tsx
-import React from 'react';
-import { GetServerSideProps } from 'next';
+// app/events/page.tsx
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
@@ -20,7 +22,21 @@ const checklistItems = [
   "SIGUR njóttu drykksins"
 ];
 
-const EventPage = ({ eventId }) => {
+const EventPage = () => {
+  const router = useRouter();
+  const [eventId, setEventId] = useState(null);
+
+  useEffect(() => {
+    if (router.isReady) {
+      setEventId(router.query.eventId);
+      // Optionally, fetch additional event data here if necessary
+    }
+  }, [router.isReady]);
+
+  if (!eventId) {
+    return <div>Loading...</div>; // Loading state or placeholder
+  }
+
   const handleChecklistSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Handle checklist submission logic here
@@ -47,17 +63,6 @@ const EventPage = ({ eventId }) => {
       </Card>
     </div>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const eventId = context.params?.eventId as string;
-  // Fetch additional event data here if necessary
-
-  return {
-    props: {
-      eventId,
-    },
-  };
 };
 
 export default EventPage;
